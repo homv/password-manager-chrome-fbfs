@@ -42403,6 +42403,7 @@ const validateEmail = (email) => {
 
   
 
+
 var crypt = {
     secret : "g48d5r6",
     encrypt : (clear) => {
@@ -42442,13 +42443,25 @@ var crypt = {
     $('#site').val(domain);
   });
 
+  $('#alertMsg').hide();
+  $('#registerPanel').hide();
+  $('#deletePanel').hide();
+  $('#userPanel').hide();
+  $('#auth').hide();
 
-
-$('#alertMsg').hide();
+(0,firebase_auth__WEBPACK_IMPORTED_MODULE_2__.onAuthStateChanged)(auth, (user) => {
+    if (user) {
+      afterlogin(auth.currentUser.uid);
+    } else {
+      $('#alertMsg').hide();
 $('#registerPanel').show();
 $('#deletePanel').hide();
 $('#userPanel').hide();
 $('#auth').hide();
+    }
+  });  
+
+
 
  
   $('#registerButton').click(async function()

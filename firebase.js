@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import * as fs from "firebase/firestore";
-import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword, signOut,onAuthStateChanged  } from "firebase/auth";
 
 var encryptionKey = "UNIQUE";
 function encrypt(data) {
@@ -34,6 +34,7 @@ const validateEmail = (email) => {
   };
 
   
+
 
 var crypt = {
     secret : "g48d5r6",
@@ -74,13 +75,25 @@ var crypt = {
     $('#site').val(domain);
   });
 
+  $('#alertMsg').hide();
+  $('#registerPanel').hide();
+  $('#deletePanel').hide();
+  $('#userPanel').hide();
+  $('#auth').hide();
 
-
-$('#alertMsg').hide();
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+      afterlogin(auth.currentUser.uid);
+    } else {
+      $('#alertMsg').hide();
 $('#registerPanel').show();
 $('#deletePanel').hide();
 $('#userPanel').hide();
 $('#auth').hide();
+    }
+  });  
+
+
 
  
   $('#registerButton').click(async function()
