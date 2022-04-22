@@ -1,0 +1,25 @@
+{
+	"manifest_version": 2,
+	"name": "Password Manager",
+	"description": "autofill password manager",
+	"version": "1.0.0",
+	"permissions": [
+		"activeTab",
+		"storage",
+        "tabs"
+    ],
+	"browser_action": {
+		"default_title": "Password Manager",
+		"default_popup": "popup.html"
+	},
+	"content_scripts": [
+        {
+        "matches": [
+            "http://*/*",
+            "https://*/*"
+        ],
+        "js": ["autofill.js"]
+        }
+    ],
+	"content_security_policy": "script-src 'self' https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js https://code.jquery.com/ui/1.11.4/jquery-ui.js https://kit.fontawesome.com/8d845c243b.js https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js; object-src 'self'"
+}
